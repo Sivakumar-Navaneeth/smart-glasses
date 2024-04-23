@@ -3,7 +3,8 @@ import cv2
 import mediapipe as mp
 import urllib.request
 import numpy as np
-# from facial_recognition_module import perform_facial_recognition
+from face_detect import runner
+
 
 class HandDetector:
     def __init__(self, mode=False, max_hands=2, detection_confidence=0.5, track_confidence=0.5):
@@ -36,15 +37,12 @@ class HandDetector:
                     cv2.circle(img, (cx, cy), 7, (255, 0, 255), -1)
         return lm_list
 
-def facial_recognition(frame):
-    print("FACE RECOG")
-def object_recognition():
-    print("OBJ RECOG")
-# def facial_recognition(frame):
-#     perform_facial_recognition(frame) 
+
+def face_recog():
+    l=runner()
+    print(l)
 
 def main():
-    tasks={1:"Facial Recognition",2:"Object Recognition"}
     detector = HandDetector()
     tip_ids = [4, 8, 12, 16, 20]
     url='http://192.168.137.68/cam-hi.jpg'
@@ -53,7 +51,7 @@ def main():
         img_resp = urllib.request.urlopen(url)
         img_np=np.array(bytearray(img_resp.read()), dtype=np.uint8)
         frame = cv2.imdecode(img_np, -1)
-        # frame = cv2.flip(frame, 0)
+        frame = cv2.flip(frame, 0)
         if not pause:
             img = detector.find_hands(frame)
             lm_list = detector.find_position(img, draw=False)
@@ -73,18 +71,19 @@ def main():
 
                 total_fingers = fingers.count(1)
                 # print("Total fingers:", total_fingers)
-                if total_fingers==1:
+                if total_fingers==5:
                     # print(frame)
-                    print("FACE DET")
+                    print("Face Detection Activated")
                     time.sleep(5)
                     img_resp = urllib.request.urlopen(url)
                     img_np=np.array(bytearray(img_resp.read()), dtype=np.uint8)
                     frame = cv2.imdecode(img_np, -1)
                     frame = cv2.flip(frame, 0)
-                    direc="C:\\Users\\Anirudh\\Documents\\Hand1\\imgs\\"
+                    direc="C:\\Users\\Anirudh\\Documents\\iotfinal\\smart-glasses\\imgs\\"
                     file_name='haha.jpg'
                     path= direc + file_name
                     cv2.imwrite(path, frame)
+                    face_recog()
                     pause=True
         else:
             cv2.putText(frame,"Busy",(50,50),cv2.FONT_HERSHEY_SIMPLEX,1,(0,0,255),2)
