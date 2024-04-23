@@ -176,9 +176,11 @@ def runner():
 	imgStr = './FacePics/FacePics/anrd.jpg'
 	root_dir = './mypeople'
 	images = run_all(imgStr, root_dir)
+	ppl = []
 	for image in images:
 		ct = get_contact(image[0].split('.')[0])
-		print(ct)
+		ppl.append(ct)
+	return ppl
 
 
 if __name__ == "__main__":
