@@ -113,7 +113,7 @@ def calculate_similar(imageVal: torch.tensor, overall: torch.tensor, itrn_id: in
 			if debug:
 				print(f"The local minimum norm for face_{itrn_id} is {minVal}")
 
-	if minVal < 0.8:
+	if minVal < 0.9:
 		if debug:
 			print(f"The global minimum norm for face_{itrn_id} is {minVal}")
 			print(f"Identified face: {list(classes.keys())[argMin]}")
