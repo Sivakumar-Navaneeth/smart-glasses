@@ -1,0 +1,6 @@
+train: /kaggle/input/threat-dataset/train_data/images/train
+val: /kaggle/input/threat-dataset/train_data/images/val
+
+nc: 6
+
+names: ['alcohol','indecent','blood','cigarette','gun','knife']
